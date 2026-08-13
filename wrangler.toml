@@ -7,10 +7,6 @@ workers_dev = true
 [ai]
 binding = "AI"
 
-# Cloudflare AI binding (optional)
-[ai]
-binding = "AI"
-
 # Cloudflare dashboard logs (optional)
 [observability]
 enabled = false
@@ -20,79 +16,3 @@ head_sampling_rate = 1
 enabled = false
 persist = true
 head_sampling_rate = 1
-
-# ====================================================================================
-# EXAMPLE CONFIGURATION
-# ====================================================================================
-# This [vars] section contains example configuration.
-# GitHub Actions will REPLACE it with real ROUTES_CONFIG from GitHub Variable.
-# Secrets (PROXY_AUTH_TOKEN, API keys) are set in Cloudflare Dashboard manually.
-# ====================================================================================
-
-[vars]
-# Model routing configuration (example - will be replaced by GitHub Actions)
-ROUTES_CONFIG = '''
-{
-  "deep-think": [
-    {
-      "provider": "anthropic",
-      "model": "claude-opus-4-20250514",
-      "apiKeys": ["ANTHROPIC_KEY_1", "ANTHROPIC_KEY_2"]
-    }
-  ],
-  "fast": [
-    {
-      "provider": "google",
-      "model": "gemini-2.0-flash-exp",
-      "apiKeys": ["GOOGLE_KEY_1"]
-    }
-  ],
-  "nvidia": [
-    {
-      "provider": "openai-compatible",
-      "baseUrl": "https://integrate.api.nvidia.com/v1",
-      "model": "nvidia/llama-3.1-nemotron-70b-instruct",
-      "apiKeys": ["NVIDIA_KEY_1"]
-    }
-  ],
-  "search": [
-    {
-      "provider": "google",
-      "model": "gemini-3-flash-preview",
-      "apiKeys": ["GOOGLE_KEY_1"],
-      "grounding": true
-    }
-  ],
-  "deepseek-v4-flash": [
-    {
-      "provider": "openai-compatible",
-      "baseUrl": "https://api.deepseek.com",
-      "model": "deepseek-v4-flash",
-      "apiKeys": ["DEEPSEEK_KEY"]
-    }
-  ],
-  "deepseek-v4-pro": [
-    {
-      "provider": "openai-compatible",
-      "baseUrl": "https://api.deepseek.com",
-      "model": "deepseek-v4-pro",
-      "apiKeys": ["DEEPSEEK_KEY"]
-    }
-  ],
-  "glm-5.2": [
-    {
-      "provider": "anthropic-compatible",
-      "baseUrl": "https://api.tokenhub.market",
-      "model": "glm-5.2",
-      "apiKeys": ["THOENHUB_KEY"]
-    }
-  ]
-}
-'''
-
-# Secrets to set in Cloudflare Dashboard:
-# - PROXY_AUTH_TOKEN
-# - ANTHROPIC_KEY_1, ANTHROPIC_KEY_2
-# - GOOGLE_KEY_1
-# - NVIDIA_KEY_1
-# - OPENAI_KEY_1, GROQ_KEY_1, etc.
