@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '22'  # 👈 CHANGED from '24' to '22' for stability
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -68,7 +68,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '22'  # 👈 CHANGED from '24' to '22' for stability
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -84,12 +84,8 @@ jobs:
           # Remove existing [vars] section and everything after it
           sed -i '/^\[vars\]/,$d' wrangler.toml
 
-          # Add new [vars] section with GitHub Variable
-          cat >> wrangler.toml << EOF
-
-          [vars]
-          ROUTES_CONFIG = '''${MINIFIED_CONFIG}'''
-          EOF
+          # 👇 FIXED: Replaced heredoc (<< EOF) with printf to avoid YAML indentation bugs
+          printf "\n[vars]\nROUTES_CONFIG = '''%s'''\n" "$MINIFIED_CONFIG" >> wrangler.toml
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
